@@ -63,7 +63,7 @@ args = parser.parse_args()
 def main():
     '''
     Connects to a server using specified IP address and port
-    requests a file, and prints the server's response.
+    requests a file, and prints the server's response. The connection is killed after that
     '''
     # Create a socket object for the client
     client_sd = socket(AF_INET, SOCK_STREAM)
@@ -76,7 +76,9 @@ def main():
            client_sd.connect((args.ip, args.port))
            
            print(f"connected to server {args.ip} with port {args.port}")
+           #process Get request to server
            headers_req = f"GET /{args.filename} HTTP/1.1\r\nHost: {args.ip}:{args.port}\nUser-Agent: Command-Line\r\n\r\n"
+           #retrive data from server
            client_sd.sendall(headers_req.encode())
            
            recieved_line = client_sd.recv(4096)

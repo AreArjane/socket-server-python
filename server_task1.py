@@ -22,14 +22,16 @@ while True:
         try:
             
             with open(filename[1:]) as f:
-                outputdata = f.read()    
+                outputdata = f.read()
+            #send Ok requst as the file been found it    
             connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
             print(message)
-
+            #if the request is browser
             if 'Mozilla' in message:
                 for i in range(0, len(outputdata)):
                     connectionSocket.send(outputdata[i].encode())
-           
+
+        #not founding file in current dir exception
         except FileNotFoundError:
             
              # If the requested file was not found, send HTTP status code 404 Not Found
@@ -37,12 +39,14 @@ while True:
             # Send the content of the 404.html file located in templates directory
             connectionSocket.send(open("templates/404.html").read().encode())
 
-
-    except OSError as e:
-        print(f"OS error: {e}")
-        connectionSocket.send("HTTP/1.1 500 Internal Server Error\n\n".encode())
-        connectionSocket.send("Internal Server Error".encode())
+    #system error
+    except PermissionError:
+        
+        connectionSocket.send("HTTP/1.1 403 Persmission denied\n\n".encode())
+        connectionSocket.send(open("templates/403.html").read().encode())
+        
     finally:
+        #close connection
         connectionSocket.close()
 
 # Close the server socket and exit the program

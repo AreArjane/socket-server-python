@@ -2,11 +2,13 @@
 from socket import *
 import sys 
 from threading import Thread
+
 #define port
 port = 8000
 # connected with TCP, bind the server and listened
 serverSocket = socket(AF_INET, SOCK_STREAM) 
 serverSocket.bind(('',port))
+#it can have up to 5 in backlog waiting
 serverSocket.listen(5)
 
 def handle_client(connection):
@@ -28,13 +30,13 @@ def handle_client(connection):
              
         connection.send("HTTP/1.1 200 OK\r\n\r\n".encode())
           
-        
+        #ensure it accessible in browser, so it check User-Agent
         if 'Mozilla' in message:
             for i in range(0, len(outputdata)):
                 connection.send(outputdata[i].encode())
         f.close()
         connection.close()
-    
+    #exception to not find file, persmission or dir
     except IOError:
         connection.send("HTTP/1.1 404 Not Found\r\n\r\n".encode())
         connection.send(open("templates/404.html").read().encode())
