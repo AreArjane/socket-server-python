@@ -4,14 +4,14 @@ This direcotry contain following file
 Index is the main html file, other default html files located under templates/ 
 
 ## README.md
-├ ── client_task2.py
-├ ── index.html
-├ ── screenshoot_test_image
-├ ── server_task1.py
-├ ── server_task3.py
-├ ── templates
-│   └── 404.html
-└ ── test_client_task3.py
+- client_task2.py
+- index.html
+- screenshoot_test_image
+- server_task1.py
+- server_task3.py
+- templates
+   - 404.html
+- test_client_task3.py
 
 
 
