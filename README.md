@@ -2,7 +2,7 @@
 
 This direcotry contain following file
 Index is the main html file, other default html files located under templates/ 
-[studentmail](arja@s.co)
+[studentmail](mailto:arja@s.co)
 ## application structure 
 
 - client_task2.py
